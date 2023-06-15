@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/15 17:34:37 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/15 17:40:48 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 //  1      2                      3            4          5             (6)
 // ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+
+
+
+
 void ft_exit(t_env *env, int error)
 {
     if (env->philo)
