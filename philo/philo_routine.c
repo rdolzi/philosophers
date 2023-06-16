@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/16 23:27:45 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/16 23:40:54 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void routine(void *data)
     t_philo *philo;
     
     philo = (t_philo *) data;
+    if (philo->id % 2 != 0)
+        my_usleep(10);
+    
 
 }
 
