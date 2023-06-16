@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/16 16:02:48 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/16 22:30:49 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ int	ft_atoi(const char *str)
 
 int main (int argc, char **argv)
 {
-	argc = 6;
-    printf("%d", ft_atoi(argv[1]));
-    return(0);
-    t_env env;
+	t_env env;
 
     if (argc < 5 || argc > 6)
         return (1);
-    init(&env, argc, argv);
-    //play(&env);
+    if (init(&env, argc, argv))
+		return (1);
+    play(&env);
     return (0);
 }
