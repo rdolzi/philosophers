@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/15 17:39:53 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/16 16:01:28 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 struct s_env;
 
@@ -35,7 +37,7 @@ typedef struct s_env
     int time_to_eat;
     int time_to_sleep;
     int max_eat;
-    pthread_t *philo;
+    t_philo *philo;
 } t_env;
 
 void init(t_env *env, int argc, char **argv);

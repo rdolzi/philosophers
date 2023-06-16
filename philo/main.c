@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/15 17:46:00 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/16 16:02:48 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ int	ft_atoi(const char *str)
 	while (str[i] >= 48 && str[i] <= 57)
 		res = (res * 10) + (str[i++] - 48);
 	if (str[i] != 0)
-		return (0);
+		return (-1);
     if (res > 2147483647 || res < -2147483648 )
-        return (0);
+        return (-1);
 	return ((int) res * sign);
 }
 
 int main (int argc, char **argv)
 {
-    printf("%d", ft_atoi("-2147483649"));
+	argc = 6;
+    printf("%d", ft_atoi(argv[1]));
     return(0);
     t_env env;
 

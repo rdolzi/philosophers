@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/15 17:40:48 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/16 16:03:47 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void ft_exit(t_env *env, int error)
 
 int check_input(int argc, char **argv)
 {
-    if ()
+    argc = 6;
+    argv[1] = "ciao";
+    // if ()
+    return (1);
 }
 
 void init(t_env *env, int argc, char **argv)
@@ -46,5 +49,5 @@ void init(t_env *env, int argc, char **argv)
         env->max_eat = ft_atoi(argv[5]);
     else
         env->max_eat = -1;
-    init_philo(env);
+    //init_philo(env);
 }
