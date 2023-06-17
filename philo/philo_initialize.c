@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/16 22:51:32 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 21:15:04 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,14 @@ void    init_philo(t_env *env, int i)
 {
     env->tavolo[i].id = i;
     env->tavolo[i].is_alive = 1;
+    env->tavolo[i].is_eating = 0;
     env->tavolo[i].eat_count = 0;
     env->tavolo[i].env = env;
     env->tavolo[i].origin_time = get_time();
-    pthread_create();
+    if (i == env->number_of_philosophers - 1)
+        env->tavolo[i].next_fork = 0;
+    else
+        env->tavolo[i].next_fork = i + 1;
     pthread_mutex_init(&env->tavolo[i].fork, NULL);
 }
 
@@ -70,6 +74,7 @@ int init(t_env *env, int argc, char **argv)
     env->time_to_die = ft_atoi(argv[2]);
     env->time_to_eat = ft_atoi(argv[3]);
     env->time_to_sleep = ft_atoi(argv[4]);
+    env->origin_time = get_time();
     env->tavolo = (t_philo *) malloc(sizeof(t_philo) * env->number_of_philosophers);
     if (argc == 6)
         env->max_eat = ft_atoi(argv[5]);

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/16 22:30:49 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 16:03:36 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_atoi(const char *str)
 	return ((int) res * sign);
 }
 
+//controllo if sui pthread()
 int main (int argc, char **argv)
 {
 	t_env env;
@@ -47,6 +48,8 @@ int main (int argc, char **argv)
         return (1);
     if (init(&env, argc, argv))
 		return (1);
+	if (env.number_of_philosophers == 1)
+		return (case_one(&env));
     play(&env);
     return (0);
 }
