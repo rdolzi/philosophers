@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/17 21:13:59 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 22:37:33 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ typedef struct s_philo
     int is_eating;
     int eat_count;
     int next_fork;
+    u_int64_t time_left;
     u_int64_t origin_time;
     pthread_t   philo;
+    pthread_t   supervisor;
     pthread_mutex_t fork;
     struct s_env *env;
 } t_philo;
@@ -50,6 +52,7 @@ typedef struct s_env
     int time_to_sleep;
     int max_eat;
     u_int64_t origin_time;
+    pthread_mutex_t lock;
     t_philo *tavolo;
 } t_env;
 
@@ -58,4 +61,5 @@ int	ft_atoi(const char *str);
 u_int64_t   get_time();
 void	my_usleep(int ms);
 int case_one(t_env *env);
+void play(t_env *env);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/17 21:29:18 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 22:39:44 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 
 void    message(t_philo *philo, char *str)
 {
-    
+    u_int64_t time;
+
+    time = get_time() - philo->env->origin_time;
+    printf("%llu %d %s\n", time, philo->id + 1, str);
 }
 // prende le due forchette
 // mangia (mentre mangia is_eating == 1)
@@ -37,13 +40,37 @@ void eat(t_philo *philo)
     pthread_mutex_unlock(&philo->env->tavolo[philo->next_fork].fork);
 }
 
-void routine(void *data)
+void    *ft_supervisor(void *data)
+{
+    t_philo *philo;
+
+    philo = (t_philo *)data;
+    while (philo->is_alive)
+    {
+        if (get_time() >= philo->time_left && philo->is_eating == 0)
+        {
+            message(philo, DIE);
+            philo->is_alive = 0;
+        }
+        if (philo->env->max_eat > 0)
+        {
+            if (philo->eat_count == philo->env->max_eat)
+                philo->is_alive = 0;
+        }
+    }
+    return ((void *)0);
+}
+
+void *routine(void *data)
 {
     t_philo *philo;
     
     philo = (t_philo *) data;
+    philo->time_left = philo->env->time_to_die + get_time();
     if (philo->id % 2 != 0)
         my_usleep(10);
+    pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
+    pthread_detach(philo->supervisor);
     while (philo->is_alive)
     {
         eat(philo);
@@ -51,6 +78,7 @@ void routine(void *data)
         my_usleep(philo->env->time_to_sleep);
         message(philo, THINK);
     }
+    return ((void *)0);
 }
 
 int case_one(t_env *env)
@@ -73,6 +101,6 @@ void    play(t_env *env)
         pthread_create(&env->tavolo[i].philo, NULL, &routine, (void *)&env->tavolo[i]);
     i = -1;
     while (++i < env->number_of_philosophers)
-        pthread_join(&env->tavolo[i].philo, NULL);
+        pthread_join(env->tavolo[i].philo, NULL);
     free(env->tavolo);
 }
