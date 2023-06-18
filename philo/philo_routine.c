@@ -6,13 +6,11 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 15:41:39 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 19:02:04 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-
 
 void    message(t_philo *philo, char *str)
 {
@@ -41,6 +39,15 @@ void eat(t_philo *philo)
     pthread_mutex_unlock(&philo->env->tavolo[philo->next_fork].fork);
 }
 
+void    die_all(t_env *env)
+{
+    int i;
+
+    i = -1;
+    while (++i < env->number_of_philosophers)
+        env->tavolo[i].is_alive = 0;
+}
+
 void    *ft_supervisor(void *data)
 {
     t_philo *philo;
@@ -48,72 +55,24 @@ void    *ft_supervisor(void *data)
     philo = (t_philo *)data;
     while (get_time() < philo->time_left)
      ;
-    printf("\nX\n");
-    while(philo->env->max_eat == -1 || philo->eat_count < philo->env->max_eat)
-        ;
-    printf("\nY\n");
-    if (philo->eat_count == philo->env->max_eat)
+    //printf("\nX\n");
+    if (philo->env->max_eat > 0)
     {
-        philo->is_alive = 0;
-        printf("ciao\n");
-
+        // printf("\nY\n");
+        while (philo->eat_count < philo->env->max_eat)
+            ;
     }
-    // else
-    // {
-    //     pthread_mutex_lock(&philo->env->lock);
-    //     philo->env->game_on = 0;
-    //     pthread_mutex_lock(&philo->env->lock);
-    // }
-    // while (philo->env->game_on)
-    // {
-    //     // if (philo->env->max_eat == 0)
-    //     //     philo->env->game_on = 0;
-    //     if (get_time() >= philo->time_left && philo->is_eating == 0)
-    //     {
-            
-    //         // philo->is_alive = 0;
-    //         pthread_mutex_lock(&philo->env->lock);
-    //         message(philo, DIE);
-    //         philo->env->game_on = 0;\
-    //         pthread_mutex_unlock(&philo->env->lock);
-    //     }
-    //     else if (philo->env->max_eat > 0)
-    //     {
-    //         if (philo->eat_count == philo->env->max_eat)
-    //         {
-    //             philo->is_alive = 0;
-    //             // pthread_mutex_lock(&philo->env->lock);
-    //             // philo->env->max_eat--;
-    //             // printf("\ncount eat:%d\n", philo->eat_count);
-    //             // printf("\nto eat:%d\n",philo->env->max_eat);
-    //             // pthread_mutex_unlock(&philo->env->lock);
-    //         }
-    //     }
-    // }
+     if (philo->eat_count == philo->env->max_eat)
+        philo->is_alive = 0;
+    else{
+        pthread_mutex_lock(&philo->env->lock);
+        message(philo, DIE);
+        die_all(philo->env);
+        pthread_mutex_unlock(&philo->env->lock);
+    }
     return ((void *)0);
 }
 
-// void *routine(void *data)
-// {
-//     t_philo *philo;
-    
-//     philo = (t_philo *) data;
-//     philo->time_left = philo->env->time_to_die + get_time();
-//     if (philo->id % 2 != 0)
-//         my_usleep(1);
-//     pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
-//     pthread_detach(philo->supervisor);
-//     while (philo->is_alive)
-//     {
-//         eat(philo);
-//         message(philo, SLEEP);
-//         my_usleep(philo->env->time_to_sleep);
-//         message(philo, THINK);
-//     }
-//     return ((void *)0);
-// }
-
-// V2 con game_on
 void *routine(void *data)
 {
     t_philo *philo;
@@ -141,8 +100,6 @@ int case_one(t_env *env)
     my_usleep(env->time_to_die);
     message(&env->tavolo[0], DIE);
     free(env->tavolo);
-    // pthread_create(&env->tavolo[0].philo, NULL, &routine, (void *)&env->tavolo[0]);
-    // pthread_join(&env->tavolo[0].philo, NULL);
     return (0);
 }
 
