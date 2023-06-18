@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 19:23:46 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 19:44:26 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*routine(void *data)
 		my_usleep(10);
 	pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
 	pthread_detach(philo->supervisor);
-	while (philo->is_alive && philo->env->game_on)
+	while (philo->is_alive)
 	{
 		eat(philo);
 		message(philo, SLEEP);

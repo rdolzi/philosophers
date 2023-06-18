@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 19:25:31 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 19:49:41 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ void	message(t_philo *philo, char *str)
 	u_int64_t	time;
 
 	time = get_time() - philo->env->origin_time;
-	if (philo->is_alive && philo->env->game_on)
+	if (philo->is_alive)
 		printf("%llu %d %s\n", time, philo->id + 1, str);
 }
 
-// game_on?
+int	case_one(t_env *env)
+{
+	message(&env->tavolo[0], FORK);
+	my_usleep(env->time_to_die);
+	message(&env->tavolo[0], DIE);
+	free(env->tavolo);
+	return (0);
+}
+
 // check_input?
 int	main(int argc, char **argv)
 {
