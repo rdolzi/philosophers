@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/17 16:03:36 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 23:17:30 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,14 @@ int	ft_atoi(const char *str)
         return (-1);
 	return ((int) res * sign);
 }
-
-//controllo if sui pthread()
+// 1)STOPPARE TUTTI SE MUORE UNO
+// 2)PER STOPPARE IL MAX_EAT
+// nel supervisor di ogni philo: se ha fatto tutti i pasti fa max_eat--
+// se max_eat == terminare tutti i processi
+// probabilmente settando un altra variabile(on/off)
+// che nel while termina tutti i philo
+// 3)controllo if error sui pthread()
+// 4)non va il loop ./philo 5 800 200 200 200
 int main (int argc, char **argv)
 {
 	t_env env;

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/17 22:39:44 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/17 23:21:04 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void *routine(void *data)
     philo = (t_philo *) data;
     philo->time_left = philo->env->time_to_die + get_time();
     if (philo->id % 2 != 0)
-        my_usleep(10);
+        my_usleep(1);
     pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
     pthread_detach(philo->supervisor);
     while (philo->is_alive)

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/17 21:15:04 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 11:05:51 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 //  1      2                      3            4          5             (6)
 // ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 
+int ft_usleep(useconds_t time)
+{
+    u_int64_t start;
+
+    start = get_time();
+    while ((get_time() - start) < time)
+        usleep(time / 10);
+    return (0);
+}
 
 void	my_usleep(int ms)
 {
@@ -70,6 +79,7 @@ int init(t_env *env, int argc, char **argv)
 
     if(check_input(argc, argv))
         return (1);
+    env->game_on = 1;
     env->number_of_philosophers = ft_atoi(argv[1]);
     env->time_to_die = ft_atoi(argv[2]);
     env->time_to_eat = ft_atoi(argv[3]);
