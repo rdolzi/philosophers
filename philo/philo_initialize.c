@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 11:05:51 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 14:14:41 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int check_input(int argc, char **argv)
     int i = 1;
     while (++i < argc)
     {
-     if (ft_atoi(argv[i]) < 0)
+     if (ft_atoi(argv[i]) <= 0)
             return (1);
     }
     return (0);
@@ -86,6 +86,7 @@ int init(t_env *env, int argc, char **argv)
     env->time_to_sleep = ft_atoi(argv[4]);
     env->origin_time = get_time();
     env->tavolo = (t_philo *) malloc(sizeof(t_philo) * env->number_of_philosophers);
+    pthread_mutex_init(&env->lock, NULL);
     if (argc == 6)
         env->max_eat = ft_atoi(argv[5]);
     else
