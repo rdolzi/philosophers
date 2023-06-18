@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 19:44:26 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/18 20:22:22 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->env->tavolo[philo->next_fork].fork);
 	message(philo, FORK);
 	philo->is_eating = 1;
+	philo->time_left = get_time() + philo->env->time_to_die;
 	message(philo, EAT);
 	my_usleep(philo->env->time_to_eat);
 	philo->eat_count++;
@@ -52,10 +53,10 @@ void	*ft_supervisor(void *data)
 		philo->is_alive = 0;
 	else
 	{
-		pthread_mutex_lock(&philo->env->lock);
-		message(philo, DIE);
-		die_all(philo->env);
-		pthread_mutex_unlock(&philo->env->lock);
+		// pthread_mutex_lock(&philo->env->lock);
+		// message(philo, DIE);
+		// die_all(philo->env);
+		// pthread_mutex_unlock(&philo->env->lock);
 	}
 	return ((void *)0);
 }
