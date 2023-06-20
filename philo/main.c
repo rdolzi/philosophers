@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:35:43 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:57:21 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ void	case_one(t_env *env)
 	env->tavolo[0].is_alive = 0;
 }
 
+int	ft_exit(t_env *env)
+{
+	int	i;
+
+	i = -1;
+	while (++i < env->number_of_philosophers)
+		pthread_mutex_destroy(&env->tavolo[i].fork);
+	pthread_mutex_destroy(&env->lock);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_env	env;
@@ -59,8 +70,9 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (1);
 	if (init(&env, argc, argv))
-		return (1);
+		return (ft_exit(&env));
 	if (play(&env))
-		return (1);
+		return (ft_exit(&env));
+	ft_exit(&env);
 	return (0);
 }

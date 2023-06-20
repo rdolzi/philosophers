@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:43:21 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:54:02 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_input(int argc, char **argv)
 	return (0);
 }
 
-void	init_philo(t_env *env, int i)
+int	init_philo(t_env *env, int i)
 {
 	env->tavolo[i].id = i;
 	env->tavolo[i].is_alive = 1;
@@ -55,7 +55,9 @@ void	init_philo(t_env *env, int i)
 		env->tavolo[i].next_fork = 0;
 	else
 		env->tavolo[i].next_fork = i + 1;
-	pthread_mutex_init(&env->tavolo[i].fork, NULL);
+	if (pthread_mutex_init(&env->tavolo[i].fork, NULL))
+		return (1);
+	return (0);
 }
 
 int	init(t_env *env, int argc, char **argv)
@@ -79,6 +81,9 @@ int	init(t_env *env, int argc, char **argv)
 		env->max_eat = -1;
 	i = -1;
 	while (++i < env->number_of_philosophers)
-		init_philo(env, i);
+	{
+		if (init_philo(env, i))
+			return (1);
+	}
 	return (0);
 }
