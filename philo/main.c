@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:17:58 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:29:05 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	ft_atoi(const char *str)
 	return ((int)res * sign);
 }
 
-int	case_one(t_env *env)
+void	case_one(t_env *env)
 {
 	message(&env->tavolo[0], FORK);
 	my_usleep(env->time_to_die);
-	message(&env->tavolo[0], DIE);
-	free(env->tavolo);
-	return (0);
+	env->tavolo[0].is_alive = 0;
 }
 
 int	main(int argc, char **argv)
@@ -62,8 +60,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init(&env, argc, argv))
 		return (1);
-	if (env.number_of_philosophers == 1)
-		return (case_one(&env));
 	play(&env);
 	return (0);
 }

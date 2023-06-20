@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:17:52 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:26:28 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,21 @@ void	*routine(void *data)
 
 	philo = (t_philo *)data;
 	philo->time_left = philo->env->time_to_die + get_time();
-	if (philo->id % 2 != 0)
+	if (philo->id % 2 != 0 && philo->env->number_of_philosophers > 1)
 		my_usleep(10);
 	pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
 	pthread_detach(philo->supervisor);
 	while (philo->is_alive)
 	{
-		eat(philo);
-		message(philo, SLEEP);
-		my_usleep(philo->env->time_to_sleep);
-		message(philo, THINK);
+		if (philo->env->number_of_philosophers == 1)
+			case_one(philo->env);
+		else
+		{
+			eat(philo);
+			message(philo, SLEEP);
+			my_usleep(philo->env->time_to_sleep);
+			message(philo, THINK);
+		}
 	}
 	if (pthread_join(philo->supervisor, NULL))
 		return ((void *)1);

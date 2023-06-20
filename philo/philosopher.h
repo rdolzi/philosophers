@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:25:23 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:27:33 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			init(t_env *env, int argc, char **argv);
 int			ft_atoi(const char *str);
 u_int64_t	get_time(void);
 void		my_usleep(int ms);
-int			case_one(t_env *env);
+void		case_one(t_env *env);
 void		play(t_env *env);
 void		message(t_philo *philo, char *str);
 #endif
