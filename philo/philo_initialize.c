@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:18:10 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:23:59 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	init_philo(t_env *env, int i)
 	env->tavolo[i].is_eating = 0;
 	env->tavolo[i].eat_count = 0;
 	env->tavolo[i].env = env;
-	env->tavolo[i].origin_time = get_time();
 	if (i == env->number_of_philosophers - 1)
 		env->tavolo[i].next_fork = 0;
 	else

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:18:14 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:25:23 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_philo
 	int				eat_count;
 	int				next_fork;
 	u_int64_t		time_left;
-	u_int64_t		origin_time;
 	pthread_t		philo;
 	pthread_t		supervisor;
 	pthread_mutex_t	fork;
