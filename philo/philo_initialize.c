@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:16:04 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:18:10 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	init(t_env *env, int argc, char **argv)
 
 	if (check_input(argc, argv))
 		return (1);
-	env->game_on = 1;
 	env->number_of_philosophers = ft_atoi(argv[1]);
 	env->time_to_die = ft_atoi(argv[2]);
 	env->time_to_eat = ft_atoi(argv[3]);

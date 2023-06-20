@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:15:31 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:17:58 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	message(t_philo *philo, char *str)
 	u_int64_t	time;
 
 	time = get_time() - philo->env->origin_time;
-	if (philo->is_alive && philo->env->game_on)
+	if (philo->is_alive)
 		printf("%llu %d %s\n", time, philo->id + 1, str);
 }
 
