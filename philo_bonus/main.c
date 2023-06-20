@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:11:04 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:14:14 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ int	ft_atoi(const char *str)
 	if (res > 2147483647 || res < -2147483648)
 		return (-1);
 	return ((int)res * sign);
-}
-
-int	case_one(t_env *env)
-{
-	message(&env->philo, FORK);
-	my_usleep(env->time_to_die);
-	message(&env->philo, DIE);
-	return (0);
 }
 
 void	kill_em_all(t_env *env)
