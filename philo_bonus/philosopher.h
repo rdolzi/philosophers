@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 18:18:46 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:12:42 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ typedef struct s_env
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_eat;
+	int				pid[200];
 	u_int64_t		origin_time;
 	sem_t			*sem_fork;
-	sem_t			*sem_lock;
-	pthread_mutex_t	lock;
 	t_philo			philo;
 }	t_env;
 

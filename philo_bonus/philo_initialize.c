@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 17:33:50 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:11:38 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ int	init(t_env *env, int argc, char **argv)
 	env->time_to_eat = ft_atoi(argv[3]);
 	env->time_to_sleep = ft_atoi(argv[4]);
 	env->origin_time = get_time();
-	env->sem_fork = sem_open("sem_fork", O_CREAT, 0660, env->number_of_philosophers);
-	env->sem_lock = sem_open("sem_lock", O_CREAT, 0660, 1);
-	// sem_close(&env->sem_fork);
-	// sem_close(&env->sem_lock);
+	env->sem_fork = sem_open(
+			"/semfork", O_CREAT, 0660, env->number_of_philosophers);
 	if (argc == 6)
 		env->max_eat = ft_atoi(argv[5]);
 	else
