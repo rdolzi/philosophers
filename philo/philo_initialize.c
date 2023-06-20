@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:46 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 14:23:59 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:43:21 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	init(t_env *env, int argc, char **argv)
 	env->origin_time = get_time();
 	env->tavolo = (t_philo *)malloc(sizeof(
 				t_philo) * env->number_of_philosophers);
-	pthread_mutex_init(&env->lock, NULL);
+	if (pthread_mutex_init(&env->lock, NULL))
+		return (1);
 	if (argc == 6)
 		env->max_eat = ft_atoi(argv[5]);
 	else

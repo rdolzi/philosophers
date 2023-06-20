@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:26:28 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:37:20 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	*routine(void *data)
 	philo->time_left = philo->env->time_to_die + get_time();
 	if (philo->id % 2 != 0 && philo->env->number_of_philosophers > 1)
 		my_usleep(10);
-	pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
+	if (pthread_create(&philo->supervisor, NULL, &ft_supervisor, data))
+		return ((void *)1);
 	pthread_detach(philo->supervisor);
 	while (philo->is_alive)
 	{
@@ -84,16 +85,23 @@ void	*routine(void *data)
 	return ((void *)0);
 }
 
-void	play(t_env *env)
+int	play(t_env *env)
 {
 	int	i;
 
 	i = -1;
 	while (++i < env->number_of_philosophers)
-		pthread_create(&env->tavolo[i].philo, NULL, &routine, (
-				void *)&env->tavolo[i]);
+	{
+		if (pthread_create(&env->tavolo[i].philo, NULL, &routine, (
+					void *)&env->tavolo[i]))
+			return (1);
+	}
 	i = -1;
 	while (++i < env->number_of_philosophers)
-		pthread_join(env->tavolo[i].philo, NULL);
+	{
+		if (pthread_join(env->tavolo[i].philo, NULL))
+			return (1);
+	}
 	free(env->tavolo);
+	return (0);
 }

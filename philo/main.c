@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:29:05 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:35:43 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init(&env, argc, argv))
 		return (1);
-	play(&env);
+	if (play(&env))
+		return (1);
 	return (0);
 }
