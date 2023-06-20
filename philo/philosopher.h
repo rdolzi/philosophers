@@ -6,14 +6,14 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:00 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 19:44:42 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:13:38 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
 
-//philo message
+// philo message
 # define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
@@ -50,6 +50,7 @@ typedef struct s_env
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_eat;
+	int				game_on;
 	u_int64_t		origin_time;
 	pthread_mutex_t	lock;
 	t_philo			*tavolo;

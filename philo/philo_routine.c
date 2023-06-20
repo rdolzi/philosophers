@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:28:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/18 20:22:22 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:15:03 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->env->tavolo[philo->next_fork].fork);
 	message(philo, FORK);
 	philo->is_eating = 1;
-	philo->time_left = get_time() + philo->env->time_to_die;
+	philo->time_left += philo->env->time_to_die;
 	message(philo, EAT);
 	my_usleep(philo->env->time_to_eat);
 	philo->eat_count++;
@@ -42,21 +42,18 @@ void	*ft_supervisor(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	while (get_time() < philo->time_left)
+	while (get_time() < philo->time_left && (philo->env->max_eat
+			== -1 || philo->eat_count < philo->env->max_eat))
 		;
-	if (philo->env->max_eat > 0)
-	{
-		while (philo->eat_count < philo->env->max_eat)
-			;
-	}
-	if (philo->eat_count == philo->env->max_eat)
+	if (philo->env->max_eat > 0 && philo->eat_count >= philo->env->max_eat)
 		philo->is_alive = 0;
 	else
 	{
-		// pthread_mutex_lock(&philo->env->lock);
-		// message(philo, DIE);
-		// die_all(philo->env);
-		// pthread_mutex_unlock(&philo->env->lock);
+		pthread_mutex_lock(&philo->env->lock);
+		message(philo, DIE);
+		die_all(philo->env);
+		// philo->env->game_on = 0;
+		pthread_mutex_unlock(&philo->env->lock);
 	}
 	return ((void *)0);
 }
@@ -71,13 +68,15 @@ void	*routine(void *data)
 		my_usleep(10);
 	pthread_create(&philo->supervisor, NULL, &ft_supervisor, data);
 	pthread_detach(philo->supervisor);
-	while (philo->is_alive)
+	while (philo->is_alive && philo->env->game_on)
 	{
 		eat(philo);
 		message(philo, SLEEP);
 		my_usleep(philo->env->time_to_sleep);
 		message(philo, THINK);
 	}
+	if (pthread_join(philo->supervisor, NULL))
+		return ((void *)1);
 	return ((void *)0);
 }
 
@@ -87,8 +86,8 @@ void	play(t_env *env)
 
 	i = -1;
 	while (++i < env->number_of_philosophers)
-		pthread_create(&env->tavolo[i].philo, NULL, &routine, (void *)
-			&env->tavolo[i]);
+		pthread_create(&env->tavolo[i].philo, NULL, &routine, (
+				void *)&env->tavolo[i]);
 	i = -1;
 	while (++i < env->number_of_philosophers)
 		pthread_join(env->tavolo[i].philo, NULL);
