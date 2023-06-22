@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:27:39 by rdolzi            #+#    #+#             */
-/*   Updated: 2023/06/21 19:42:08 by rdolzi           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:46:11 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,6 @@ int	ft_atoi(const char *str)
 		return (-1);
 	return ((int)res * sign);
 }
-
-// void	case_one(t_env *env)
-// {
-// 	u_int64_t	time;
-
-// 	time = get_time() - env->origin_time;
-// 		printf("%llu %d %s\n", time, env->tavolo[0].id + 1, "has taken a fork");
-// 	my_usleep(env->time_to_die);
-// 	env->tavolo[0].is_alive = 0;
-// }
 
 void	case_one(t_env *env)
 {
